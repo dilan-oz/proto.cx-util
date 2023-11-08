@@ -457,9 +457,6 @@ $(document).ready(function () {
       } else if ($(this).prop('name') === 'proGPT') {
         labelSpanId = '#gpt-label'
         relatedElementClass = '.is-progpt' // Related class for "proGPT"
-      } else if ($(this).prop('name') === 'proData') {
-        labelSpanId = '#data-label'
-        relatedElementClass = '.is-prodata' // Related class for "proData"
       }
 
       // Toggle the visibility of the related element
@@ -488,7 +485,31 @@ $(document).ready(function () {
 
     $(
       'input[name="proData"]'
-    ).on('change', handleCheckboxChange(1499))
+    ).on('change', function () {
+      let labelSpanId = ''
+      let relatedElementClass = '' // This will store the class of the element we want to show/hide
+      
+      labelSpanId = '#data-label'
+      relatedElementClass = '.is-prodata' // Related class for "proData"
+
+      // Toggle the visibility of the related element
+      if ($('input[name="proData"]').prop('checked')) {
+        $(relatedElementClass).css('display', 'flex')
+        estimatedCost += checkboxCost
+        $(labelSpanId).text('Disable add-on')
+      } else {
+        $(relatedElementClass).hide()
+        estimatedCost -= checkboxCost
+        $(labelSpanId).text('Enable add-on')
+      }
+
+      updateAddonsCost()
+
+      $('.estimated-cost-title').text(
+        '$' + numberWithCommas(estimatedCost).toString()
+      )
+      HandleInput()
+    })
 
     // Initial estimated cost adjustment and label setting
     $('input[name="proGPT"], input[name="proAnalytics"]').each(function () {
