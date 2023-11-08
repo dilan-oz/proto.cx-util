@@ -508,17 +508,16 @@ $(document).ready(function () {
       }
     })
 
-    $('input[name="proData"]').each(function () {
-      if ($(this).prop('checked')) {
-        estimatedCost += 1499
-        $('#data-label').text('Disable add-on')
-        $('.is-prodata').css('display', 'flex')
-      } else {
-        $('#data-label').text('Enable add-on')
-        $('.is-prodata').hide()
-      }
-    })
 
+    if ($('input[name="proData"]').prop('checked')) {
+      estimatedCost += 1499
+      $('#data-label').text('Disable add-on')
+      $('.is-prodata').css('display', 'flex')
+    } else {
+      $('#data-label').text('Enable add-on')
+      $('.is-prodata').hide()
+    }
+    
     $('.estimated-cost-title').text(
       '$' + numberWithCommas(estimatedCost).toString()
     )
