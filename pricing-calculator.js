@@ -456,6 +456,9 @@ $(document).ready(function () {
       } else if ($(this).prop('name') === 'proGPT') {
         labelSpanId = '#gpt-label'
         relatedElementClass = '.is-progpt' // Related class for "proGPT"
+      } else if ($(this).prop('name') === 'proData') {
+        labelSpanId = '#data-label'
+        relatedElementClass = '.is-prodata' // Related class for "proData"
       }
 
       // Toggle the visibility of the related element
