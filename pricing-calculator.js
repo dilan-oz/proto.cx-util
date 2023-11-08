@@ -431,6 +431,9 @@ $(document).ready(function () {
       if ($('input[name="proAnalytics"]').prop('checked')) {
         estimatedCost += 499
       }
+      if ($('input[name="proData"]').prop('checked')) {
+        estimatedCost += 1499
+      }
       $('.estimated-cost-title').text(
         '$' + numberWithCommas(estimatedCost).toString()
       )
