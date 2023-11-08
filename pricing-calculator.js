@@ -495,11 +495,11 @@ $(document).ready(function () {
       // Toggle the visibility of the related element
       if ($('input[name="proData"]').prop('checked')) {
         $(relatedElementClass).css('display', 'flex')
-        estimatedCost += checkboxCost
+        estimatedCost += 1499
         $(labelSpanId).text('Disable add-on')
       } else {
         $(relatedElementClass).hide()
-        estimatedCost -= checkboxCost
+        estimatedCost -= 1499
         $(labelSpanId).text('Enable add-on')
       }
 
