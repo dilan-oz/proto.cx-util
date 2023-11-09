@@ -1,0 +1,456 @@
+<script src="https://protocx.github.io/www.proto.cx/roi_calc2.js"></script>
+
+<!--  Swiper.js library for sliders -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+<!--  Generating schema BreadcrumbList -->
+<script>
+let head = document.getElementsByTagName('head')[0];
+let script = document.createElement('script');
+script.type = 'application/ld+json';
+
+let url = window.location.pathname;
+ let splitted = url.split('/');
+  
+if (splitted[1] === '') {
+
+} else if (splitted.length === 2) {
+let scriptContent  = {
+  "@context": "https://schema.org/", 
+  "@type": "BreadcrumbList", 
+  "itemListElement": [{
+    "@type": "ListItem", 
+    "position": 1, 
+    "name": splitted[1].replace(/-/g, ' '),
+    "item": window.location.href  
+  }]
+};
+script.text = JSON.stringify(scriptContent);
+head.appendChild(script);
+} else if (splitted.length === 3) {
+let scriptContent  = {
+  "@context": "https://schema.org/", 
+  "@type": "BreadcrumbList", 
+  "itemListElement": [{
+    "@type": "ListItem", 
+    "position": 1, 
+    "name": splitted[1].replace(/-/g, ' '),
+    "item": "https://"+window.location.hostname+'/'+splitted[1] 
+  },{
+    "@type": "ListItem", 
+    "position": 2, 
+    "name": splitted[2].replace(/-/g, ' '),
+    "item": window.location.href    
+  }]
+};
+script.text = JSON.stringify(scriptContent);
+head.appendChild(script);
+}
+
+</script>
+
+<!-- handling announcement banner -->
+<script>
+  $(document).ready(function() {
+    const announcement = $('#announcement-banner');
+    const header = $('.navbar-wrapper');
+    const tabs = $('.onboarding-tabs-wrapper');
+    const headerHeight = header.outerHeight();
+
+    const announcementEmpty = $('.announcement-empty').length > 0;
+    // Check if announcement not closed and announcement not empty
+    if (!Cookies.get('announcement') && !announcementEmpty) {
+      const announcementHeight = announcement.outerHeight();
+      announcement.css({display: 'block'});
+      header.css({position: 'absolute', top: (announcementHeight + 'px'), 'z-index': '11'});
+      tabs.css({position: 'fixed', top: (headerHeight + announcementHeight + 'px')});
+      $(window).scroll(function() {
+        if ($(document).scrollTop() > announcementHeight) {
+          header.css({position: 'fixed', top: '0'});
+          tabs.css({position: 'fixed', top: (headerHeight + 'px')});
+        }
+        else {
+          header.css({position: 'absolute', top: (announcementHeight + 'px')});
+          tabs.css({position: 'absolute', top: (headerHeight + announcementHeight + 'px')});
+        }
+      });
+    } else {
+      announcement.css({display: 'none'});
+    }
+
+    // Close announcement
+    $('.announcement-close-area, .banner-content-wrapper').on('click', () => {
+      Cookies.set('announcement', true);
+      announcement.css({display: 'none'});
+      header.css({position: 'fixed', top: '0'});
+      tabs.css({position: 'fixed', top: (headerHeight + 'px')});
+      $(window).off('scroll');
+    });
+  });
+</script>
+
+<!--  Slider for CTA features (footer element) -->
+<script>
+  var swiperCTA = new Swiper('#CTA-features-slider-swiper',{
+    slidesPerView: 3,
+    slidesPerGroup: 1,
+    grabCursor:true,
+    allowTouchMove: true,
+    speed: 1500,
+    loop: true,
+    autoplay: {
+      delay: 2000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+
+    pagination: {
+      el: '#CTA-features-slider_pagination',
+      type: 'bullets',
+      clickable: 'true',
+    },
+
+    breakpoints: {
+      0: { /* when window >=0px - webflow mobile landscape/portriat */
+        slidesPerView: 1,
+        slidesPerGroup:1,
+      },
+      480: { /* when window >=0px - webflow mobile landscape/portriat */
+        slidesPerView: 2,
+        slidesPerGroup:1,
+      },
+      767: { /* when window >= 767px - webflow tablet */
+        slidesPerView: 3,
+        slidesPerGroup:1,
+      },
+      1160: { 
+        slidesPerView: 3,
+        slidesPerGroup:1,
+      }
+    },
+
+  });
+</script>
+
+<!-- append and pause tutorial video -->
+<script>
+ $(document).ready(function() {
+  const ftux_video_wrapper = $('.ftux-wrapper');
+  let isVideoAppended = false;
+
+  const ftux_video = '<video class="ftux-tutorial" poster="https://uploads-ssl.webflow.com/5ff76e79af2f6094108a7bfa/6443a6708452f15fb91323fd_video-thubmnail-ftux-1920.webp" playsinline controls style="width:100%; height:100%; position:absolute; z-index:1; left:0"> <source src="https://www.dropbox.com/s/2ui2fohos6vaa88/FTUX.mp4?raw=1" type="video/mp4"></video>';
+
+  $(".is-ftux-lightbox-trigger").click(function() {
+    if (!isVideoAppended) {
+      ftux_video_wrapper.append(ftux_video);
+      isVideoAppended = true; 
+    }
+  });
+
+  // Pause video
+  $(document).on('click', '.lightbox-close-area, .lightbox-close-icon', function() {
+    $('.ftux-tutorial').each(function() {
+      this.pause();
+    });
+  });
+
+});
+
+</script>
+
+
+
+<!-- hiding language selector when hero scrolls in view on mobile devices -->
+<script>
+
+  var footer = document.querySelector('.footer-wrapper');
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    window.addEventListener('scroll', function(event) {
+
+      if (footer.getBoundingClientRect().y < 644) {
+        $('.weglot-container').css({
+          'display': 'none'
+        });
+      } else {
+        $('.weglot-container').css({
+          'display': 'inline-block'
+        });
+      }
+
+    }, true);
+
+  });
+
+</script>
+
+
+<!--  Slider for latest resources -->
+<script>
+  var swiper_resources = new Swiper ('.resources-slider', {
+    slidesPerView: 3,
+    slidesPerGroup: 1,
+    spaceBetween: 30,
+    grabCursor: true,
+    allowTouchMove: true,
+    navigation: {
+      nextEl: '#resources-right-button',
+      prevEl: '#resources-left-button',
+    },
+    breakpoints: {
+      0: { /* when window >=0px - webflow mobile landscape/portriat */
+        slidesPerView: 1.2,
+        slidesPerGroup: 1,
+        spaceBetween: 15,
+      },
+      767: { /* when window >= 767px - webflow tablet */
+        slidesPerView: 2.2,
+        slidesPerGroup: 1,
+        spaceBetween: 25,
+      },
+      1160: {
+        slidesPerView: 3.2,
+        slidesPerGroup: 1,
+        spaceBetween: 30,
+      }
+    },
+  });
+</script>
+
+
+<!--  Logotype slider (Free trial/Thank you/Partners/Financial solution/Continents) -->
+<script>
+  var swiperlogotypes = new Swiper('.logotypes-slider-swiper',{
+    /*spaceBetween: 0,*/
+    grabCursor: true,
+    a11y: false,
+    freeMode: true,
+    speed: 11000,
+    loop: true,
+    slidesPerView: "auto",
+    autoplay: {
+      delay: 0.5,
+      disableOnInteraction: false,
+    },
+  });
+
+</script>
+
+
+
+<!-- -->
+<script type="text/javascript">
+  var id;
+  var currentLanguage;
+	
+   Weglot.on("initialized", function(){
+    currentLanguage = Weglot.getCurrentLang();
+       if (currentLanguage === 'tw') {
+          currentLanguage='zh_TW'}
+  });
+
+  window.ProtoSettings = {
+    gwId: 'gw_LtaTugNMe1bNrVuZaUl24p7',
+    env: '',
+ 	onLoad: function() { 
+	Proto.setLanguage(currentLanguage);
+	Proto.show(); }  };
+
+  var d=document,s=d.createElement("script");
+  s.type="text/javascript",s.async=true,s.src="https://app.proto.cx/webchat/client.js";
+  var t=d.getElementsByTagName("script")[0];
+  t.parentNode.insertBefore(s,t);
+  s.addEventListener("load", function() {
+    var p = window.ProtoSettings; Proto.init(p, p.onLoad);
+  });
+</script>
+
+
+
+<!-- -->
+<script>
+  (function handleCookiesAndAnnouncementBannersDisplay() {
+    function throttle(cb, time) {
+      var lastTime = new Date();
+      var timeoutId;
+      return function () {
+        clearTimeout(timeoutId);
+
+        if (new Date() - lastTime < time) {
+          timeoutId = setTimeout(function () {
+            cb();
+          }, time);
+          return;
+        }
+
+        cb();
+        lastTime = new Date();
+      };
+    }
+
+    function toggleElementVisibility(el, cond) {
+      if (!el) return;
+      Object.assign(el.style, {
+        display: cond === 'ON' ? 'flex' : 'none',
+        opacity: cond === 'ON' ? '1' : '0',
+        pointerEvents: cond === 'ON' ? 'auto' : 'none'
+      });
+    }
+
+    function applyTransitionTo(el) {
+      if (!el) return;
+      el.style.transition = 'opacity 0.2s ease-out';
+    }
+  })();
+</script>
+
+
+<!-- chatbot triggers -->
+<script>
+  const $discoveryCall = $('.btn-discovery-call');
+  $discoveryCall.click(function () {
+    Proto.sendTrigger('biz_discoverycall');
+  });
+
+  const $results = $('.btn-get-these-results');
+  $results.click(function () {
+    Proto.sendTrigger(discoveryTrigger);
+  })
+
+  const $roadmap = $('.btn-roadmap');
+  $roadmap.click(function () {
+    Proto.sendTrigger('roadmap_request');
+  })
+
+
+  $(document).on('click', '[data-proto-trigger]', function(){
+    let triggerName = $(this).data('proto-trigger') || ''
+    triggerName = triggerName.trim()
+    if( triggerName ){
+      Proto.sendTrigger(triggerName);
+    }
+  })
+</script>
+
+<script>
+  $(document).ready(function () {
+    const navbarAnnouncementWrapper = $('#navbar-announcement');
+    const navbarAnnouncementCloseButton = $('#navbar-announcement-close')
+
+    //const announcementCloseButton = $('#announcement-close');
+    //const announcementButton = $('#announcement-button');
+    //const announcementWrapper = $('#announcement-wrapper');
+
+    const announcementCloseButton = $('#navbar-announcement-close');
+    const announcementButton = $('#navbar-announcement-button');
+    const announcementWrapper = $('#navbar-announcement');
+
+    const cookiesAgreeButton = $('#agreeBtn');
+
+    //if (Cookies.get('announcement-closed') === 'true') {
+    //  announcementWrapper.css({display: 'none'});
+    //} else {
+    //  announcementWrapper.css({display: 'block'});
+    //Cookies.set('announcement-closed', true, {expires: 1, path: '/'});
+    //}
+
+    if (!Cookies.get('alert')) {
+      // $('#cookieBar').show();
+      $('#cookieBar').css('display', 'flex');
+      var date = new Date();
+      date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000);
+      Cookies.set('alert', true, {expires: date});
+    }
+
+    //cookiesAgreeButton.on('click', function () {
+    //  if (Cookies.get('announcement-closed') !== 'true') {
+    //    announcementWrapper.css({display: 'block'});
+    //  }
+    //});
+
+    //announcementCloseButton.on('click', function () {
+    //  announcementWrapper.hide();
+    //  Cookies.set('announcement-closed', true, { path: '/'});
+    //});
+
+    //announcementButton.on('click', function () {
+    //  Cookies.set('announcement-closed', true, { path: '/'});
+    //});
+  });
+</script>
+
+
+
+<script>
+  function defer(method) {
+    if (window.Proto && window.Proto.rpc) { setTimeout(function() { method() }, 3500); }
+    else { setTimeout(function() { defer(method) }, 2000); }
+  }
+  function welcome_message() {
+    window.Proto.sendTrigger('welcome_message', {sneakpeek: true})
+    Cookies.set('welcome_message', true);
+  }
+  if (!Cookies.get('welcome_message') || true) { 
+    defer(welcome_message);
+  }
+</script>
+
+
+<!-- appending UTM parameters to signup link -->
+
+<script>
+  $(document).ready(function() {
+    var pattern = /utm_medium|utm_source|utm_campaign/;
+
+    if (!pattern.test(window.location.href)){
+
+      const domainsToDecorate = ['app.proto.cx'];
+      const queryParams = ['utm_medium', 'utm_source', 'utm_campaign'];
+
+      const links = document.querySelectorAll('a');
+      let newHref;
+      // check if links contain domain from the domainsToDecorate array and then decorates
+      for (let linkIndex = 0; linkIndex < links.length; linkIndex++) {
+        for (let domainIndex = 0; domainIndex < domainsToDecorate.length; domainIndex++) {
+          if (links[linkIndex].href.indexOf(domainsToDecorate[domainIndex]) > -1 && links[linkIndex].href.indexOf('#') === -1) {
+            newHref = decorateUrl(links[linkIndex].href);
+            links[linkIndex].href = newHref;
+          }
+        }
+      }
+
+      function getQueryParam(name) {
+        return Cookies.get(name);
+      }
+
+      // decorates the URL with query params
+      function decorateUrl(urlToDecorate) {
+        urlToDecorate = (urlToDecorate.indexOf('?') === -1) ? `${urlToDecorate }?` : `${urlToDecorate }&`;
+        const collectedQueryParams = [];
+        for (let queryIndex = 0; queryIndex < queryParams.length; queryIndex++) {
+          if (getQueryParam(queryParams[queryIndex])) {
+            collectedQueryParams.push(`${queryParams[queryIndex] }=${ getQueryParam(queryParams[queryIndex])}`);
+          }
+        }
+        return urlToDecorate + collectedQueryParams.join('&');
+      } }
+
+  });
+</script>
+
+<!-- Webchat change language logic -->
+<script>
+Weglot.on("languageChanged", function(newLang) {
+    if (newLang === 'tw') {
+        Proto.setLanguage('zh_TW')
+    } else {
+        Proto.setLanguage(newLang)
+
+    }
+})
+</script>
+
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw">
+</script>
