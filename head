@@ -1,0 +1,184 @@
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                                                      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                            })(window,document,'script','dataLayer','GTM-WFM4R76');</script>
+<!-- End of Google Tag Manager -->
+
+<meta name="facebook-domain-verification" content="jykmjt15pwzyg21i526qo4zpouaukw"/>
+
+<meta name="ahrefs-site-verification" content="e277fbc820b7edeb171614e14fcbe26774734ad616d239cf5804439ccf81e50b">
+
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+<meta name="google-site-verification" content="rQUd0JYWyusPPuL1bvXnoKGw2uGUsvIZTTYBJMJ0dic"/>
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap&subset=cyrillic,cyrillic-ext,latin-ext,vietnamese" rel="stylesheet">
+
+<!-- Weglot snippet -->
+<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<script>
+  Weglot.initialize({
+    api_key: 'wg_8f9524c74445d4d3423611aa528dc4fa0'
+
+  });
+</script>  
+
+
+<!-- saving UTM params -->
+<script>
+  var queryString = window.location.search;
+  var URLSearchParams_wb = new URLSearchParams(queryString);
+
+  const utmParameters = ["utm_source", "utm_medium", "utm_campaign"];
+  const paramValues = {}
+
+  for (const utm_element of utmParameters) {
+    if(URLSearchParams_wb.has(utm_element)){
+      paramValues[utm_element] = URLSearchParams_wb.get(utm_element)
+    }
+  }
+
+  if (Object.keys(paramValues).length > 0) {
+    for (utm_element of utmParameters) {
+      Cookies.remove(utm_element);
+      if (paramValues[utm_element]) {
+        Cookies.set(utm_element, paramValues[utm_element], { expires: 1 });
+      }
+    }
+  }
+</script>
+
+
+<style>
+
+  /* Make text look crisper and more legible in all browsers */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+  input {
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input[type="number"]:hover,
+  input[type="number"]:focus {
+    -moz-appearance: number-input;
+  }
+
+
+  select {
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  *:focus, *:active {
+    outline: none;
+  }
+
+  [data-before-text]::before {
+    content: attr(data-before-text);
+  }
+
+  [data-after-text]::after {
+    content: attr(data-after-text);
+  }
+
+
+  /*Marker effect for in-text spans
+  .head-paragraph-underline {
+  background: linear-gradient(to top, #fccc00 35%, transparent 35%);
+  }
+  */
+
+
+  /*Custom breakpoint for Hero screen H1 title*/
+  @media screen and (max-width: 1280px) and (min-width: 991px) {
+
+    h1 {
+      font-size:44px;
+    }
+
+    .heading-1, .country_heading-hero {
+      font-size:44px;
+    }
+
+    .subtitle-paragraph {
+      font-size:18px;
+    }
+
+    .half.solution-hero-text-wrapper {
+      padding-right: 20px;
+    }
+
+  }
+
+
+  /*Swiper pagination bullets*/
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    margin-right: 15px;
+    background-color: #b5b5b5;
+    transition: width 400ms ease-in-out;
+  }
+
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    width: 16px;
+    background-color: #202125;
+  }
+
+  /*Swiper linear animation for logotype slider*/
+  .logotypes-slider-list {
+    -webkit-transition-timing-function:linear!important;
+    -o-transition-timing-function:linear!important;
+    transition-timing-function:linear!important;
+  }
+
+  /*hiding language selector when footer scrolls in view*/
+  .weglot-container.hidden-omni {
+    display: none;
+  }
+
+</style>
+
+
