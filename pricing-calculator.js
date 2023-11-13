@@ -3,7 +3,6 @@
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
-
 // Initialize variables
 let customers = 0
 let range1Price = 0
@@ -16,7 +15,6 @@ const customersInRange = {
   range3Price: 0,
   range4Price: 0
 }
-
 // Helper function to update URL parameters
 function updateUrlParams(key, value) {
   if ('URLSearchParams' in window) {
@@ -27,14 +25,11 @@ function updateUrlParams(key, value) {
     history.pushState(null, '', newRelativePathQuery)
   }
 }
-
 $(document).ready(function () {
   let estimatedCost = 0
   let finalPrice = 0
   let addonsCost = 0
-
   const elementToObserve = $('.lightbox-wrapper')[0]
-
   // Create a new MutationObserver instance
   const observer = new MutationObserver((mutationsList, observer) => {
     for (const mutation of mutationsList) {
@@ -46,31 +41,23 @@ $(document).ready(function () {
       }
     }
   })
-
   observer.observe(elementToObserve, { attributes: true })
-
   // Function to update the addons cost and the UI
   function updateAddonsCost() {
     addonsCost = 0
-
     if ($('input[name="proGPT"]').prop('checked')) {
       addonsCost += 499
     }
-
     if ($('input[name="proAnalytics"]').prop('checked')) {
       addonsCost += 499
     }
-
     if ($('input[name="proData"]').prop('checked')) {
       addonsCost += 1499
     }
-
     $('.price-breakdown-total-cost-addons').text(numberWithCommas(addonsCost))
   }
-
   // Call the updateAddonsCost function initially to set the initial value
   updateAddonsCost()
-
   // Helper function to update block visibility and price
   function updateBlockVisibilityAndPrice(
     price,
@@ -89,7 +76,6 @@ $(document).ready(function () {
       $(blockSelector).hide()
     }
   }
-
   function joinWords(words) {
     if (!Array.isArray(words)) {
       throw new Error('The input must be an array of strings.');
@@ -103,7 +89,6 @@ $(document).ready(function () {
       return words.slice(0, -1).join(', ') + (words.length > 1 ? ' and ' : '') + words[words.length - 1];
     }
   }
-
   // Function to update the price breakdown UI
   function updatePriceBreakdown() {
     // Calculate the price per range for each range
@@ -113,7 +98,6 @@ $(document).ready(function () {
     const pricePerRange4 = range4Price
     const totalPriceWithoutAddons =
       pricePerRange1 + pricePerRange2 + pricePerRange3 + pricePerRange4
-
     $('.price-breakdown-selected-customers').text(numberWithCommas(customers || 250))
     $('.price-breakdown-total-cost-platform').text(
       numberWithCommas(totalPriceWithoutAddons)
@@ -121,7 +105,6 @@ $(document).ready(function () {
     $('.price-breakdown-total-cost').text(
       numberWithCommas(totalPriceWithoutAddons + addonsCost)
     )
-
     // Update the selected addons text
     const selectedAddonsSpan = $('.price-breakdown-selected-addons')
     const selectedAddonsArr = []
@@ -129,7 +112,6 @@ $(document).ready(function () {
     $('input[name="proGPT"]').prop('checked') && selectedAddonsArr.push('proGPT')
     $('input[name="proAnalytics"]').prop('checked') && selectedAddonsArr.push('proAnalytics')
     $('input[name="proData"]').prop('checked') && selectedAddonsArr.push('proData')
-
     if (selectedAddonsArr.length > 1) {
       selectedAddonsSpan.text(joinWords(selectedAddonsArr) + ' add-ons')
     } else if (selectedAddonsArr.length > 0) {
@@ -137,7 +119,6 @@ $(document).ready(function () {
     } else {
       selectedAddonsSpan.text('')
     }
-
     // Update the visibility and price values in the blocks
     updateBlockVisibilityAndPrice(
       pricePerRange1,
@@ -168,17 +149,14 @@ $(document).ready(function () {
       'range4Price'
     )
   }
-
   // Call the initial updatePriceBreakdown function
   updatePriceBreakdown()
-
   // Function to handle tooltip click
   function handleTooltipClick() {
     if ($(window).width() < 992) {
       $(this).next('.tooltip-text').fadeToggle('slow', 'linear')
     }
   }
-
   // Function to handle custom check click
   function handleCustomCheckClick() {
     if ($('.custom-check:checked').length === 0 && !this.checked) {
@@ -189,11 +167,9 @@ $(document).ready(function () {
       return true
     }
   }
-
   // Event handlers for tooltip and custom check
   $('.tooltip-question').on('click', handleTooltipClick)
   $('.custom-check').on('click', handleCustomCheckClick)
-
   $('.pricing-addons-wrapper').ready(function () {
     const checkboxes = document.getElementsByClassName('selectable-check')
     var checkboxArray = Array.from(checkboxes)
@@ -209,7 +185,6 @@ $(document).ready(function () {
         updateUrlParams('addons', queryString)
       })
     })
-
     let searchParams = new URLSearchParams(window.location.search)
     if (searchParams.has('addons')) {
       let params = searchParams
@@ -221,7 +196,6 @@ $(document).ready(function () {
       params.forEach((item) => $(`.selectable-check[value='${item}']`).click())
     }
   })
-
   // Function to handle bar active state based on customer count
   const barActive = (calcNumber, calcRange) => {
     if (calcRange.value > (calcNumber === '1' ? 250000 : 500000)) {
@@ -252,15 +226,12 @@ $(document).ready(function () {
       })
     }
   }
-
   function checkBarOverlapWithThumb(calcNumber, rangeElement) {
     const rangeWidth = $(rangeElement).width()
     const thumbPercentage =
       (rangeElement.value - rangeElement.min) /
       (rangeElement.max - rangeElement.min)
-
     const thumbPosition = rangeWidth * thumbPercentage
-
     // Define the bar positions based on window width
     const barPositions =
       $(window).width() > 700
@@ -276,7 +247,6 @@ $(document).ready(function () {
             { start: 0.4 * rangeWidth, end: 0.61 * rangeWidth },
             { start: 0.7 * rangeWidth, end: 0.93 * rangeWidth }
           ]
-
     barPositions.forEach((bar, index) => {
       const barElement = $(`.bar-${index + 1}.bar-calc-${calcNumber}`)
       if (thumbPosition >= bar.start && thumbPosition <= bar.end) {
@@ -286,7 +256,6 @@ $(document).ready(function () {
       }
     })
   }
-
   const setValue = (range, tooltip, calcNumber) => {
     const newValue = Number(
         ((range.value - range.min) * 100) / (range.max - range.min)
@@ -304,14 +273,11 @@ $(document).ready(function () {
       `calc(${newValue}% + (${newPosition}px))`
     )
   }
-
   if ($('div#calculator-1').length) {
     const range = document.getElementById('range-1'),
       tooltip = document.getElementById('tooltip-1'),
       customersLabel = document.getElementById('customers-1')
-
     document.addEventListener('DOMContentLoaded', setValue(range, tooltip, 1))
-
     const setRange = (value) => {
       if (range.value < 250000) {
         $('#range-1').attr('step', 526.315789)
@@ -327,24 +293,10 @@ $(document).ready(function () {
         customers = Math.round(100000 + ((value - 750000) / 2777.77778) * 10000)
       }
     }
-
-    const CheckBoostBox = () => {
-      if (customers > 250) {
-        $('#boost').prop('checked', true)
-        $('#boost-label').text('Included')
-        $('.is-proactive').css('display', 'flex')
-      } else {
-        $('#boost').prop('checked', false)
-        $('#boost-label').text('Included in any paid plan')
-        $('.is-proactive').hide()
-      }
-    }
-
     const Calculate = () => {
       let baseValue = 0
       let userOffset = 250
       let pricePerUser = 0.5
-
       if (customers > 5000 && customers <= 50000) {
         baseValue = 2375
         userOffset = 5000
@@ -366,17 +318,13 @@ $(document).ready(function () {
         userOffset = 0
         pricePerUser = 0
       }
-
       finalPrice = Math.round(
         baseValue + (customers - userOffset) * pricePerUser
       )
-
       customersLabel.innerHTML = `${numberWithCommas(
         customers
       )} customers / month`
-      CheckBoostBox()
     }
-
     // Function to calculate and update price ranges based on the number of customers
     function calculatePriceRanges(customers) {
       const ranges = [
@@ -395,7 +343,6 @@ $(document).ready(function () {
           priceVar: 'range4Price'
         }
       ]
-
       ranges.forEach((range) => {
         const customersInRangeValue =
           Math.min(range.max, customers) - range.min + 1
@@ -415,7 +362,6 @@ $(document).ready(function () {
         }
       })
     }
-
     const HandleInput = () => {
       setValue(range, tooltip, 1)
       setRange(range.value)
@@ -444,16 +390,13 @@ $(document).ready(function () {
               2
             )} per customer</span>`
     }
-
     $(window).resize(function () {
       checkBarOverlapWithThumb('1', range)
     })
-
     // Function to handle checkbox changes for addons
     const handleCheckboxChange = (checkboxCost) => function () {
       let labelSpanId = ''
       let relatedElementClass = '' // This will store the class of the element we want to show/hide
-
       if ($(this).prop('name') === 'proAnalytics') {
         labelSpanId = '#performance-label'
         relatedElementClass = '.is-proanalytics' // Related class for "proAnalytics"
@@ -461,7 +404,6 @@ $(document).ready(function () {
         labelSpanId = '#gpt-label'
         relatedElementClass = '.is-progpt' // Related class for "proGPT"
       }
-
       // Toggle the visibility of the related element
       if ($(this).prop('checked')) {
         $(relatedElementClass).css('display', 'flex')
@@ -472,20 +414,16 @@ $(document).ready(function () {
         estimatedCost -= checkboxCost
         $(labelSpanId).text('Enable add-on')
       }
-
       updateAddonsCost()
-
       $('.estimated-cost-title').text(
         '$' + numberWithCommas(estimatedCost).toString()
       )
       HandleInput()
     }
-
     // Event listeners for both checkboxes
     $(
       'input[name="proAnalytics"], input[name="proGPT"], input[name="proApps"]'
     ).on('change', handleCheckboxChange(499))
-
     $(
       'input[name="proData"]'
     ).on('change', function () {
@@ -494,7 +432,6 @@ $(document).ready(function () {
       
       labelSpanId = '#data-label'
       relatedElementClass = '.is-prodata' // Related class for "proData"
-
       // Toggle the visibility of the related element
       if ($('input[name="proData"]').prop('checked')) {
         $(relatedElementClass).css('display', 'flex')
@@ -505,15 +442,12 @@ $(document).ready(function () {
         estimatedCost -= 1499
         $(labelSpanId).text('Enable add-on')
       }
-
       updateAddonsCost()
-
       $('.estimated-cost-title').text(
         '$' + numberWithCommas(estimatedCost).toString()
       )
       HandleInput()
     })
-
     // Initial estimated cost adjustment and label setting
     $('input[name="proGPT"], input[name="proAnalytics"]').each(function () {
       if ($(this).prop('checked')) {
@@ -535,8 +469,6 @@ $(document).ready(function () {
         }
       }
     })
-
-
     if ($('input[name="proData"]').prop('checked')) {
       estimatedCost += 1499
       $('#data-label').text('Disable add-on')
@@ -549,11 +481,9 @@ $(document).ready(function () {
     $('.estimated-cost-title').text(
       '$' + numberWithCommas(estimatedCost).toString()
     )
-
     range.oninput = () => {
       HandleInput()
     }
-
     const StickToValue = () => {
       if ($(window).width() > 700) {
         if (customers >= 4800 && customers <= 6200) {
@@ -573,24 +503,20 @@ $(document).ready(function () {
         }
       }
     }
-
     range.onmouseup = () => {
       StickToValue()
       updateUrlParams('customers', range.value)
     }
-
     range.ontouchend = () => {
       StickToValue()
       updateUrlParams('customers', range.value)
     }
-
     range.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         StickToValue()
         updateUrlParams('customers', range.value)
       }
     })
-
     // Function to handle URL parameter initialization
     let searchParams = new URLSearchParams(window.location.search)
     if (searchParams.has('customers')) {
