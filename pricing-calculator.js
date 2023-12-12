@@ -384,6 +384,7 @@ $(document).ready(function () {
       $('.estimated-cost-title').text(
         '$' + numberWithCommas(estimatedCost).toString()
       )
+      console.log("calculationValues", calculationValues)
       tooltip.innerHTML =
         customers <= 250
           ? `<span></span>`
