@@ -324,6 +324,7 @@ $(document).ready(function () {
       customersLabel.innerHTML = `${numberWithCommas(
         customers
       )} customers / month`
+      return [pricePerUser]
     }
     // Function to calculate and update price ranges based on the number of customers
     function calculatePriceRanges(customers) {
@@ -365,7 +366,7 @@ $(document).ready(function () {
     const HandleInput = () => {
       setValue(range, tooltip, 1)
       setRange(range.value)
-      Calculate()
+      const calculationValues = Calculate()
       calculatePriceRanges(customers)
       updatePriceBreakdown()
       barActive('1', range)
@@ -386,7 +387,7 @@ $(document).ready(function () {
       tooltip.innerHTML =
         customers <= 250
           ? `<span></span>`
-          : `<span>$${(estimatedCost / customers).toFixed(
+          : `<span>$${calculationValues[0].toFixed(
               2
             )} per customer</span>`
     }
